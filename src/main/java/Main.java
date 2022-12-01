@@ -67,6 +67,7 @@ public class Main {
                 messPerPerson.put(person, num + 1);
             }
         }
+
         int sum = WordsPerMessage.stream().reduce(0, Integer::sum);
         double avgWordsPerMessage = (double) sum / rownum;
         String mostActiveDate = mostCommonDate(dates);
