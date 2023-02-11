@@ -9,7 +9,7 @@ External APIs integrated -> Apache POI API, REST API
 
 1. Displays the message with the largest  number of text (done) - Maxmessage
 2. Displays the date in which the most messages have been sent and received (done) - mostActiveDate
-3. Displays the individual who messaged more frequently
+3. Displays the individual who messaged more frequently - morefreqtexter
 4. Displays average word count per message (done) avgWordsPerMessage
 
  */
@@ -29,7 +29,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Logger log = LogManager.getLogger(Logger.class.getName());
         File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
         BufferedReader br = new BufferedReader(new FileReader(text));
         String st;
@@ -41,7 +40,13 @@ public class Main {
         String maxMessage = "";
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<Integer> WordsPerMessage = new ArrayList<>();
-        HashMap<String, Integer> messPerPerson = new HashMap<String, Integer>();
+        HashMap<String, Integer> messPerPerson = new HashMap<>();
+
+        String personOne  = null;
+        int personOnefreq = 0;
+        String personTwo = null;
+        int persontwofreq=0;
+
         while ((st = br.readLine()) != null) {
             String date = dateData(st);
             String time = timeData(st);
@@ -67,7 +72,41 @@ public class Main {
             } else {
                 messPerPerson.put(person, num + 1);
             }
+
+            if(personOne==null)
+            {
+                personOne=person;
+            }
+            if(personTwo==null&& !(person.equals(personOne)))
+            {
+                personTwo=person;
+            }
+
+            if(person.equals(personOne))
+            {
+                personOnefreq++;
+            }
+            else if(person.equals(personTwo))
+            {
+                persontwofreq++;
+            }
+
+
+
+
         }
+
+        String morefreqtexter;
+        if(personOnefreq>persontwofreq)
+        {
+            morefreqtexter = personOne;
+        }
+        else
+        {
+            morefreqtexter = personTwo;
+        }
+
+
 
         int sum = WordsPerMessage.stream().reduce(0, Integer::sum);
         double avgWordsPerMessage = (double) sum / rownum;
@@ -88,8 +127,7 @@ public class Main {
     //Brings the date data from data sheet
     public static String dateData(String str) {
         int indexofDate = str.indexOf(",");
-        String date = str.substring(0, indexofDate);
-        return date;
+        return str.substring(0, indexofDate);
     }
 
     //Brings the time data from the data sheet
@@ -121,5 +159,7 @@ public class Main {
         return dateOccurance.entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
 
     }
+
+
 
 }
