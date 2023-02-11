@@ -28,6 +28,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
         Logger log = LogManager.getLogger(Logger.class.getName());
         File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
         BufferedReader br = new BufferedReader(new FileReader(text));
@@ -73,7 +74,6 @@ public class Main {
         String mostActiveDate = mostCommonDate(dates);
         workbook.write(file);
         file.close();
-
 
     }
 
