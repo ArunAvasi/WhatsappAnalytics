@@ -35,9 +35,8 @@ public class ExController {
             "/",
             "/hello"
     })
-    public String hello(@RequestParam(value = "name",
-            defaultValue = "World", required = true) String name, Model model) {
-        model.addAttribute("name", name);
+    public String hello(Model model) {
+        model.addAttribute("message", "worldd");
         return "index";
     }
 }
