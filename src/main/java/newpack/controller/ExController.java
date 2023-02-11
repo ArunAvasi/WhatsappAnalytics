@@ -23,6 +23,7 @@ package newpack.controller;//import org.springframework.stereotype.Controller;
 //}
 
 
+import newpack.Main;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ExController {
 
-    @GetMapping({
-            "/",
-            "/hello"
-    })
+    @GetMapping({"/"})
     public String hello(Model model) {
-        model.addAttribute("message", "worldd");
+        model.addAttribute("message", Main.maxMessage);
         return "index";
     }
 }

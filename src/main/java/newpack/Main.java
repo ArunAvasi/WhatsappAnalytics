@@ -14,6 +14,7 @@ External APIs integrated -> Apache POI API, REST API
 
  */
 
+import newpack.controller.ExController;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -31,10 +32,15 @@ import java.util.Map;
 
 @SpringBootApplication
 public class Main {
+    public static String mostActiveDate;
+    public static String morefreqtexter;
+
+    public static String maxMessage;
+
 
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(Main.class, args);
+
 
         File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
         BufferedReader br = new BufferedReader(new FileReader(text));
@@ -44,7 +50,7 @@ public class Main {
         FileOutputStream file = new FileOutputStream("C:\\Users\\arund\\OneDrive\\Desktop\\messageDatas.xlsx");
         int rownum = 0;
         int maxLength = 0;
-        String maxMessage = "";
+
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<Integer> WordsPerMessage = new ArrayList<>();
         HashMap<String, Integer> messPerPerson = new HashMap<>();
@@ -103,7 +109,7 @@ public class Main {
 
         }
 
-        String morefreqtexter;
+
         if(personOnefreq>persontwofreq)
         {
             morefreqtexter = personOne;
@@ -117,9 +123,15 @@ public class Main {
 
         int sum = WordsPerMessage.stream().reduce(0, Integer::sum);
         double avgWordsPerMessage = (double) sum / rownum;
-        String mostActiveDate = mostCommonDate(dates);
+        mostActiveDate = mostCommonDate(dates);
         workbook.write(file);
         file.close();
+
+        SpringApplication.run(Main.class, args);
+
+
+
+
 
     }
 
@@ -166,6 +178,7 @@ public class Main {
         return dateOccurance.entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
 
     }
+
 
 
 
