@@ -36,6 +36,7 @@ public class Main {
     public static String morefreqtexter;
 
     public static String maxMessage;
+    public static String avgwords;
 
 
 
@@ -64,6 +65,7 @@ public class Main {
             String date = dateData(st);
             String time = timeData(st);
             String person = user(st);
+            System.out.println(person);
             String userMessages = message(st);
             XSSFRow row = spreadsheet.createRow(rownum);
             row.createCell(0).setCellValue(date);
@@ -126,8 +128,12 @@ public class Main {
         mostActiveDate = mostCommonDate(dates);
         workbook.write(file);
         file.close();
+        avgwords = String.valueOf(avgWordsPerMessage);
+
 
         SpringApplication.run(Main.class, args);
+
+
 
 
 
@@ -146,23 +152,26 @@ public class Main {
     //Brings the date data from data sheet
     public static String dateData(String str) {
         int indexofDate = str.indexOf(",");
-        return str.substring(0, indexofDate);
+        return str.substring(1, indexofDate);
     }
 
     //Brings the time data from the data sheet
     public static String timeData(String str) {
         int first = str.indexOf(", ") + 2;
-        int second = str.indexOf("- ") - 1;
+        int second = str.indexOf("] ") - 4;
         return str.substring(first, second);
     }
 
     //Brings the user information from data sheet
     public static String user(String str) {
-        int timere = str.indexOf(":");
-        str = str.substring(timere + 1);
-        int first = str.indexOf("- ") + 2;
-        int second = str.indexOf(":");
-        return str.substring(first, second);
+
+        str = str.substring(str.indexOf("] ")+1);
+
+        str=str.substring(0,str.indexOf(":"));
+
+        return str;
+
+
     }
 
     public static String mostCommonDate(ArrayList<String> dates) {

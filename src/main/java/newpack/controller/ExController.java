@@ -35,6 +35,9 @@ public class ExController {
     @GetMapping({"/"})
     public String hello(Model model) {
         model.addAttribute("message", Main.maxMessage);
+        model.addAttribute("date",Main.mostActiveDate);
+        model.addAttribute("person",Main.morefreqtexter);
+        model.addAttribute("avgmessagelength",Main.avgwords);
         return "index";
     }
 }
