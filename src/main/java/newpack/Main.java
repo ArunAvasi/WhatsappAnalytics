@@ -4,14 +4,10 @@ package newpack;/*
                                                                                               by Arun Avasi
 
 Overview:
-This project analyzes Whatsapp message data, exports it to an Excel sheet, and brings about numerous statistics
-External APIs integrated -> Apache POI API, REST API
-
-1. Displays the message with the largest  number of text (done) - Maxmessage
-2. Displays the date in which the most messages have been sent and received (done) - mostActiveDate
-3. Displays the individual who messaged more frequently - morefreqtexter
-4. Displays average word count per message (done) avgWordsPerMessage
-
+A Statistical data analysis tool for WhatsApp message data. Employed Apache POI API to extract, process and export the data to an Excel sheet.
+The project then analyzed the data to generate various statistics and metrics such as frequency of message exchanges, average message length,
+and peak messaging hours, which were displayed on the front-end using Spring Boot and Thymeleaf. The completed project is packaged (Maven) into
+ an AWS S3 bucket and deployed on the cloud (AWS Elastic Beanstalk) with appropriate IAM roles, load balancers, security groups, and EC2 instances.
  */
 
 import com.amazonaws.regions.Regions;
