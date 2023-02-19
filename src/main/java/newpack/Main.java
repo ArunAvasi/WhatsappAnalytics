@@ -14,14 +14,24 @@ External APIs integrated -> Apache POI API, REST API
 
  */
 
+import com.amazonaws.regions.Regions;
 import newpack.controller.ExController;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.SpringApplication;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -41,10 +51,19 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
+        AWSCredentials credentials = new BasicAWSCredentials("AKIA3BSILOEAE3Y7FIWA", "LHsrT3qQJtD0eyxYDyd3SiWN7HXUWZ7/r7oQdrp0");
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(Regions.US_EAST_1)
+                .build();
+        S3Object s3object = s3Client.getObject(new GetObjectRequest("whatsapptxt", "WhatsApp Chat with Dad.txt"));
 
 
-        File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
-        BufferedReader br = new BufferedReader(new FileReader(text));
+
+
+
+       // File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(s3object.getObjectContent()));
         String st;
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet(" Message_Data");
@@ -185,10 +204,5 @@ public class Main {
             }
         }
         return dateOccurance.entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
-
     }
-
-
-
-
 }
