@@ -47,7 +47,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        AWSCredentials credentials = new BasicAWSCredentials("AKIA3BSILOEAO74OGPWJ", "3vwxWsoQu3qlLpiXf+IW607KiUHyGFWICjq1NQhP");
+        AWSCredentials credentials = new BasicAWSCredentials("access", "secret");
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.US_EAST_1)
