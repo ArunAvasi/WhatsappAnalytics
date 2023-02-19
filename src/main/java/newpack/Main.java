@@ -51,7 +51,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        AWSCredentials credentials = new BasicAWSCredentials("AKIA3BSILOEAE3Y7FIWA", "LHsrT3qQJtD0eyxYDyd3SiWN7HXUWZ7/r7oQdrp0");
+        AWSCredentials credentials = new BasicAWSCredentials("AKIA3BSILOEAO74OGPWJ", "3vwxWsoQu3qlLpiXf+IW607KiUHyGFWICjq1NQhP");
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.US_EAST_1)
@@ -60,9 +60,6 @@ public class Main {
 
 
 
-
-
-       // File text = new File("C:\\Users\\arund\\OneDrive\\Documents\\WhatsApp Chat with Dad.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(s3object.getObjectContent()));
         String st;
         XSSFWorkbook workbook = new XSSFWorkbook();
